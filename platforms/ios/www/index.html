@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--
+    Customize this policy to fit your own app's needs. For more guidance, see:
+        https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+    Some notes:
+        * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+        * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+        * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+            * Enable inline JS: add 'unsafe-inline' to default-src
+    -->
+    <meta charset="UTF-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+
+
+    <!--STYLE-->
+    <link rel="stylesheet" type="text/css"  href="css/style.css">
+    <link rel="stylesheet" type="text/css"  href="css/swiper.min.css">
+    <link rel="stylesheet" type="text/css"  href="css/normalize.css">
+    <link rel="stylesheet" type="text/css"  href="css/foundation.min.css">
+    <link rel="stylesheet" type="text/css"  href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css"  href="css/hover.css">
+    <link rel="stylesheet" type="text/css"  href="css/swal.css">
+    <link rel="stylesheet" type="text/css"  href="https://unpkg.com/onsenui/css/onsenui.css">
+    <link rel="stylesheet" type="text/css"  href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+    <link rel="stylesheet" type="text/css"  href="semantic/dist/semantic.min.css">
+    <title>FCQ</title>
+</head>
+<body>
+<div class="ui left demo vertical inverted sidebar labeled icon menu" type="reveal" id="menu">
+</div>
+<div class="dimmed pusher">
+    <div class="app">
+        <div class="loader" hidden></div>
+        <ons-navigator swipeable id="myNavigator" setSwipeable(true) page="pageFacult.html">
+        </ons-navigator>
+        <template id="page1.html">
+            <ons-page id="page1">
+                <ons-toolbar>
+                    <div class="left">
+                        <ons-toolbar-button onclick="pushmenu()">
+                            <ons-icon icon="ion-navicon" style="font-size: 32px; width: 1em;"></ons-icon>
+                        </ons-toolbar-button>
+                    </div>
+                    <div class="center">Inicio</div>
+                </ons-toolbar>
+                <div class="cards">
+                    <div class="loaderCards"></div>
+                </div>
+            </ons-page>
+        </template>
+        <div class="posts">
+            <template id="single.html">
+                <ons-page id="page2">
+                    <ons-toolbar>
+                        <div class="left">
+                            <ons-back-button>Inicio</ons-back-button>
+                        </div>
+                        <div class="center">Post</div>
+                    </ons-toolbar>
+                    <div class="loaderSingle"></div>
+                    <div class="img_single" hidden>
+                        <div class="title_single"></div><p class="fecha_single"></p>
+                        <div class="contenido_single"></div>
+                    </div>
+                </ons-page>
+            </template>
+        </div>
+        <template id="pagebus.html">
+            <ons-page id="bus">
+                <ons-toolbar>
+                    <div class="left"><ons-back-button>Inicio</ons-back-button></div>
+                    <div class="center">Busqueda</div>
+                </ons-toolbar>
+                <div class="contsearch">
+                    <div class="ui icon input searchinput">
+                        <input type="text" placeholder="Buscar..." class="srchinput">
+                        <i class="circular search link icon srchicon" onclick="searchposts()"></i>
+                    </div>
+                    <div class="srchcards">
+                    </div>
+                </div>
+            </ons-page>
+        </template>
+        <template id="pageFacult.html">
+            <ons-page id="page1Facult">
+                <ons-toolbar class="toolbarFaculties">
+                    <div class="center">¿Cual es tu Facultad?</div>
+                </ons-toolbar>
+                <div class="categorias">
+                    <div class="catcontainer" id="catcontainer">
+                    </div>
+                </div>
+                <ons-fab position="bottom right" onclick="savefaculties()">
+                    <ons-icon icon="ion-checkmark-round" style= "width: 30px"></ons-icon>
+                </ons-fab>
+            </ons-page>
+        </template>
+        <template id="pageLogin.html">
+            <ons-page id="page1Login">
+                <div class="containerLogin">
+                    <div class="loginHeader">
+                        <img class="logoLogin" src="img/Icon1.png" alt="">
+                    </div>
+                    <div class="containerLoginInputs">
+                        <p class="loginTitle">LOGIN</p>
+                        <div class="inputLoginContainer">
+                            <img src="img/man-user.png" alt="" class="inputIconLogin">
+                            <input id="inputUser" class="inputLogin" placeholder="Usuario" type="email">
+                        </div>
+                        <div class="inputLoginContainer">
+                            <img src="img/lock.png" alt="" class="inputIconLogin">
+                            <input id="#inputPass" class="inputLogin inputPass" placeholder="Contraseña" type="password">
+                        </div>
+
+                        <div class="btnLogin" onclick="login()">
+                            <p class="txtBtnLogin">Iniciar Sesión</p>
+                        </div>
+                        <div onclick="sinCuenta()" class="btnContinueWithoutCount">Continuar sin cuenta</div>
+                    </div>
+                    <div class="btnRegistrar" onclick="register()">Registrarme</div>
+
+                </div>
+            </ons-page>
+        </template>
+        <template id="userProfile.html">
+            <ons-page id="page1Profile">
+                <div class="containerLogin">
+                    <div class="profileHeader">
+                        <img onclick="backHome()" class="back-arrow" src="img/left-arrow.png" alt="">
+                        <img class="edit_white" src="img/pencil-edit-button.png" alt="">
+                    </div>
+                    <div class="downHeaderProfile">
+                        <div class="profileImage">
+                            <img src="img/user.jpg" alt="" class="imgProf">
+                        </div>
+                        <p class="nameProfile"></p>
+                        <div class="divisorName"></div>
+                        <div class="titleInteresesProfile">Mis Intereses</div>
+                        <div class="divisorSubtitle"></div>
+                        <div class="containerIntereses">
+
+                        </div>
+                        <div class="titleSugerenciasProfile">Sugerencias de Amigos</div>
+                        <div class="divisorSubtitle"></div>
+                        <div class="txtSugerencias">Te recomendamos personas con las que tengas intereses en común, de esta forma pueden ponerse en contacto e iniciar un proyecto juntos</div>
+                        <div class="containerSugerencias">
+                            <div class="userContainer">
+                                <img class="close_icon" src="img/close.png" alt="">
+                                <img src="img/user.jpg" alt="" class="img_sugerencias">
+                                <div class="txtUser">Alan Abundis</div>
+                            </div>
+                            <div class="userContainer">
+                                <img class="close_icon" src="img/close.png" alt="">
+                                <img src="img/user.jpg" alt="" class="img_sugerencias">
+                                <div class="txtUser">Alan Abundis</div>
+                            </div>
+                            <div class="userContainer">
+                                <img class="close_icon" src="img/close.png" alt="">
+                                <img src="img/user.jpg" alt="" class="img_sugerencias">
+                                <div class="txtUser">Alan Abundis</div>
+                            </div>
+                            <div class="userContainer">
+                                <img class="close_icon" src="img/close.png" alt="">
+                                <img src="img/user.jpg" alt="" class="img_sugerencias">
+                                <div class="txtUser">Alan Abundis</div>
+                            </div>
+                            <div class="userContainer">
+                                <img class="close_icon" src="img/close.png" alt="">
+                                <img src="img/user.jpg" alt="" class="img_sugerencias">
+                                <div class="txtUser">Alan Abundis</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <ons-modal direction="up" animation="lift" animation-options="{duration: 0.3, timing: 'ease-in'}">
+                  <div class="modalUser" style="text-align: center">
+                    <div class="modalLoader">
+                        <ons-icon icon="md-spinner" size="50px" spin></ons-icon>
+                    </div>
+                    <div class="profileHeader2">
+                        <img onclick="hideModal()" class="close_icon" src="img/cancel-music.png" alt="">
+                    </div>
+                    <div class="downHeaderProfile">
+                        <div class="profileImage">
+                            <img src="img/user.jpg" alt="" class="imgProf2">
+                        </div>
+                        <p class="nameProfile2"></p>
+                        <div class="divisorName"></div>
+                        <p class="titleInteresesProfile2">Información Personal</p>
+                        <div class="divisorSubtitle2"></div>
+                        <p class="mailInterest"></p>
+                        <div class="containerLinks">
+                            <a href=""><img class="social_icon" src="img/facebook-logo-button.png"></a>
+                        </div>
+                        <p class="titleInteresesProfile2">Mis Intereses</p>
+                        <div class="divisorSubtitle2"></div>
+                        <div class="containerIntereses2">
+
+                        </div>
+                    </div>
+
+                  </div>
+                </ons-modal>
+            </ons-page>
+        </template>
+        <template id="pageIntereses.html">
+            <ons-page id="page1Intereses">
+                <ons-toolbar class="toolbarFaculties">
+                    <div class="center">¿Cuales son tus intereses?</div>
+                </ons-toolbar>
+                <div class="categorias">
+                    <div class="intcontainer" id="intcontainer">
+
+                    </div>
+                </div>
+                <ons-fab position="bottom right" onclick="saveintereses()">
+                    <ons-icon icon="ion-checkmark-round" style= "width: 30px"></ons-icon>
+                </ons-fab>
+            </ons-page>
+        </template>
+        
+        <div class="searchedposts">
+
+        </div>
+    </div>
+</div>
+
+<!-- SCRIPT ZONE -->
+<script type="text/javascript" src="cordova.js"></script>
+<script src="js/swiper.jquery.min.js"></script>
+<script src="js/swiper.min.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/foundation.min.js"></script>
+<script src="js/skrollr.min.js"></script>
+<script src="js/mandrill.js"></script>
+<script src="js/swal.js"></script>
+<script src="js/nicescroll.js"></script>
+<script src="script.js"></script>
+<script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+<script src="semantic/dist/semantic.min.js"></script>
+<!-- SCRIPT ZONE -->
+</body>
+</html>

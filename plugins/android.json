@@ -1,0 +1,21 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-firebase": {
+      "PACKAGE_NAME": "com.claresti"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.claresti"
+    },
+    "onesignal-cordova-plugin": {
+      "PACKAGE_NAME": "com.claresti"
+    }
+  },
+  "dependent_plugins": {}
+}
